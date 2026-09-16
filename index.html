@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Chill Space</title>
+    <title>Anime Chill Space - Tạ Văn Khanh</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -22,6 +22,7 @@
             background-color: #0f0f0f;
         }
 
+        /* Màn hình chào bấm để mở khóa âm thanh */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -64,7 +65,7 @@
             box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
         }
 
-        /* Khung chứa video nền động */
+        /* Video nền động */
         .background-container {
             position: absolute;
             top: 0;
@@ -103,158 +104,280 @@
             }
         }
 
+        /* HIỆU ỨNG CHỮ NHẤP NHÁY ĐỔI MÀU (ĐỒNG BỘ CHO TẤT CẢ) */
+        @keyframes colorFlashes {
+            0% { color: #ff758c; text-shadow: 0 0 12px rgba(255, 117, 140, 0.7); }
+            33% { color: #75fbff; text-shadow: 0 0 12px rgba(117, 251, 255, 0.7); }
+            66% { color: #fffb75; text-shadow: 0 0 12px rgba(255, 251, 117, 0.7); }
+            100% { color: #ff758c; text-shadow: 0 0 12px rgba(255, 117, 140, 0.7); }
+        }
+
+        /* Khu vực thông tin cá nhân */
         .content-overlay {
             position: absolute;
-            top: 40%;
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 3;
             text-align: center;
-            color: #fff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-            pointer-events: none;
+            width: 100%;
+            padding: 0 20px;
         }
 
-        .content-overlay h2 {
-            font-size: 22px;
+        .name-with-avatar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 8px;
-            font-weight: 600;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 6px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .small-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid #fff;
+        }
+
+        .content-overlay h3 {
+            font-size: 17px;
+            font-weight: 700;
+            animation: colorFlashes 4s infinite;
         }
 
         .content-overlay p {
-            font-size: 15px;
-            margin: 4px 0;
-            color: #f0f0f0;
+            font-size: 14px;
+            margin: 6px 0;
+            font-weight: 600;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            animation: colorFlashes 4s infinite;
         }
 
+        /* Link Facebook đồng bộ hiệu ứng màu sắc */
+        .fb-link {
+            text-decoration: none;
+            animation: colorFlashes 4s infinite;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .fb-link:hover {
+            transform: scale(1.05);
+            text-decoration: underline;
+        }
+
+        /* Đồng hồ hiển thị góc dưới bên phải y hệt Windows */
+        .windows-clock {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-align: right;
+            font-size: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            pointer-events: none;
+            line-height: 1.4;
+        }
+
+        .windows-clock .time-line {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* Bảng điều khiển nhạc Glassmorphism */
         .music-player {
             position: absolute;
-            bottom: 30px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
-            background: rgba(20, 20, 20, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 12px 20px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            width: 340px;
+            background: rgba(22, 22, 22, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 20px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            width: 380px;
         }
 
-        .track-info {
+        .player-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .track-info-left {
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-grow: 1;
         }
 
         .track-art {
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
             object-fit: cover;
         }
 
-        .track-details .track-title {
+        .track-name {
             color: #fff;
             font-size: 13px;
             font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 120px;
         }
 
-        .track-details .track-artist {
-            color: #aaa;
-            font-size: 11px;
-        }
-
-        .player-controls {
+        .player-center-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 16px;
         }
 
-        .player-controls button {
+        .player-center-controls button {
             background: none;
             border: none;
-            color: #fff;
-            font-size: 14px;
+            color: #d1d1d1;
+            font-size: 13px;
             cursor: pointer;
             transition: color 0.2s, transform 0.1s;
         }
 
-        .player-controls button:hover {
-            color: #ff7eb3;
+        .player-center-controls button:hover {
+            color: #fff;
             transform: scale(1.1);
         }
 
-        .player-controls .play-pause-btn {
-            font-size: 18px;
+        .player-center-controls .main-play-btn {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        /* Thanh tua nhạc & thời gian */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .time-text {
+            color: #aaa;
+            font-size: 11px;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+        }
+
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
+    <!-- Màn hình chào -->
     <div id="welcome-screen" onclick="startExperience()">
-        <h1>✨ Chạm vào màn hình để bắt đầu ✨</h1>
-        <button class="enter-btn">Vào Web Chill</button>
+        <h1>✨ Chạm để vào không gian Chill ✨</h1>
+        <button class="enter-btn">Vào Web</button>
     </div>
 
-    <!-- HÌNH NỀN ĐỘNG: Thay chữ background.mp4 thành tên file video của bạn hoặc link video mp4 trực tiếp -->
+    <!-- Video nền động -->
     <div class="background-container">
         <video autoplay muted loop playsinline>
             <source src="background.mp4" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ video.
         </video>
     </div>
 
+    <!-- Hoa anh đào rơi -->
     <div id="sakura-container"></div>
 
+    <!-- THÔNG TIN CÁ NHÂN -->
     <div class="content-overlay">
-        <h2>Nguyễn Thành Ninh</h2>
-        <p>Donate: 886492233 (BIDV)</p>
-        <p>Facebook: Nguyễn Thành Ninh (Tatsu)</p>
-        <p>Gmail: contact.tatsuya@gmail.com</p>
+        <div class="name-with-avatar">
+            <!-- Tự động nhận file avatar.jpg bạn tải lên -->
+            <img src="avatar.jpg" alt="Avatar" class="small-avatar">
+            <h3>Tạ Văn Khanh</h3>
+        </div>
+        <p>Donate: 0363012030 (MBB)</p>
+        <p>Facebook: <a href="https://www.facebook.com/share/1DAHM1QBn6/?mibextid=wwXIfr" target="_blank" class="fb-link">Tạ Văn Khanh</a></p>
+        <p>Gmail: emcogaydau33@gmail.com</p>
     </div>
 
+    <!-- ĐỒNG HỒ GÓC DƯỚI BÊN PHẢI -->
+    <div class="windows-clock" id="windows-clock">
+        <div id="date-string">Thứ Tư - 16/09/2026</div>
+        <div class="time-line" id="time-string">GMT+7 - 21:28:34</div>
+    </div>
+
+    <!-- KHUNG PHÁT NHẠC -->
     <div class="music-player">
-        <div class="track-info">
-            <!-- Ảnh thu nhỏ của bài hát -->
-            <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=100&auto=format&fit=crop" alt="Art" class="track-art">
-            <div class="track-details">
-                <div class="track-title" id="song-title">Bài Hát Của Tôi</div>
-                <div class="track-artist">Tatsu</div>
+        <div class="player-top">
+            <div class="track-info-left">
+                <!-- Tự động nhận file music.jpg bạn tải lên -->
+                <img src="music.jpg" alt="Art" class="track-art">
+                <span class="track-name">Music</span>
+            </div>
+            <div class="player-center-controls">
+                <button onclick="prevSong()"><i class="fa-solid fa-backward-step"></i></button>
+                <button onclick="toggleLoop()"><i class="fa-solid fa-rotate-right" id="loop-icon"></i></button>
+                <button class="main-play-btn" onclick="togglePlay()"><i id="play-icon" class="fa-solid fa-play"></i></button>
+                <button onclick="nextSong()"><i class="fa-solid fa-forward-step"></i></button>
             </div>
         </div>
-        <div class="player-controls">
-            <button onclick="prevSong()"><i class="fa-solid fa-backward-step"></i></button>
-            <button class="play-pause-btn" onclick="togglePlay()"><i id="play-icon" class="fa-solid fa-play"></i></button>
-            <button onclick="nextSong()"><i class="fa-solid fa-forward-step"></i></button>
+        <div class="progress-container">
+            <span class="time-text" id="current-time">0:00</span>
+            <input type="range" class="progress-bar" id="progress-bar" value="0" min="0" max="100" onchange="seekAudio()">
+            <span class="time-text" id="duration-time">0:00</span>
         </div>
     </div>
 
-    <!-- DANH SÁCH NHẠC CỦA BẠN: Thay các link ở thuộc tính src thành tên file mp3 của bạn (ví dụ: nhac1.mp3) -->
-    <audio id="audio-player" loop>
-        <source src="nhac1.mp3" type="audio/mp3">
+    <!-- Thẻ phát nhạc -->
+    <audio id="audio-player">
+        <source src="nhac.mp3" type="audio/mp3">
     </audio>
 
     <script>
-        // Thay tên bài hát và tên file nhạc mp3 của bạn vào đây
-        const playlist = [
-            { title: "Bài Hát 1", artist: "Ninh", src: "nhac1.mp3" },
-            { title: "Bài Hát 2", artist: "Ninh", src: "nhac2.mp3" }
-        ];
-        let currentSongIndex = 0;
         const audio = document.getElementById('audio-player');
         const playIcon = document.getElementById('play-icon');
-        const songTitle = document.getElementById('song-title');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeText = document.getElementById('current-time');
+        const durationText = document.getElementById('duration-time');
+
+        const playlist = ["nhac.mp3"];
+        let currentSongIndex = 0;
 
         function startExperience() {
             const welcomeScreen = document.getElementById('welcome-screen');
@@ -285,7 +408,7 @@
 
         function nextSong() {
             currentSongIndex = (currentSongIndex + 1) % playlist.length;
-            loadSong(currentSongIndex);
+            audio.src = playlist[currentSongIndex];
             audio.play();
             playIcon.classList.remove('fa-play');
             playIcon.classList.add('fa-pause');
@@ -293,34 +416,69 @@
 
         function prevSong() {
             currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-            loadSong(currentSongIndex);
+            audio.src = playlist[currentSongIndex];
             audio.play();
             playIcon.classList.remove('fa-play');
             playIcon.classList.add('fa-pause');
         }
 
-        function loadSong(index) {
-            songTitle.innerText = playlist[index].title;
-            audio.src = playlist[index].src;
+        function toggleLoop() {
+            audio.loop = !audio.loop;
+            event.currentTarget.style.color = audio.loop ? '#ff7eb3' : '#d1d1d1';
         }
 
-        // Tạo hiệu ứng hoa anh đào rơi
-        const sakuraContainer = document.getElementById('sakura-container');
-        const sakuraCount = 25;
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = progressPercent;
+                currentTimeText.innerText = formatTime(audio.currentTime);
+                durationText.innerText = formatTime(audio.duration);
+            }
+        });
 
-        for (let i = 0; i < sakuraCount; i++) {
+        function seekAudio() {
+            const seekTime = (progressBar.value / 100) * audio.duration;
+            audio.currentTime = seekTime;
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Cập nhật đồng hồ thời gian thực giống Windows
+        function updateClock() {
+            const now = new Date();
+            const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+            const dayName = days[now.getDay()];
+            
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('date-string').innerText = `${dayName} - ${day}/${month}/${year}`;
+            document.getElementById('time-string').innerText = `GMT+7 - ${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Hiệu ứng hoa anh đào rơi
+        const sakuraContainer = document.getElementById('sakura-container');
+        for (let i = 0; i < 25; i++) {
             const sakura = document.createElement('div');
             sakura.classList.add('sakura');
             sakura.style.left = Math.random() * 100 + 'vw';
             sakura.style.top = -Math.random() * 20 + 'vh';
-            
             const size = Math.random() * 8 + 6 + 'px';
             sakura.style.width = size;
             sakura.style.height = size;
-            
             sakura.style.animationDuration = Math.random() * 5 + 5 + 's';
             sakura.style.animationDelay = Math.random() * 5 + 's';
-            
             sakuraContainer.appendChild(sakura);
         }
     </script>
